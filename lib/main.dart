@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(
@@ -28,6 +29,10 @@ class _MyAppState extends State<MyApp> {
           body: Center(
             child: Text(
               globals.years[yearCounter++].toString(),
+              style: GoogleFonts.lato(
+                textStyle: const TextStyle(
+                    color: Colors.white, fontSize: 50, height: 3),
+              ),
             ),
           ),
         ),
