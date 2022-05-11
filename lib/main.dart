@@ -24,17 +24,23 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    var year = globals.years[yearCounter++].toString();
     return MaterialApp(
         home: Scaffold(
           body: Center(
-            child: Text(
-              globals.years[yearCounter++].toString(),
-              style: GoogleFonts.lato(
-                textStyle: const TextStyle(
-                    color: Colors.white, fontSize: 50, height: 3),
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                year,
+                style: GoogleFonts.lato(
+                  textStyle: const TextStyle(
+                      color: Colors.white, fontSize: 50, height: 3),
+                ),
               ),
-            ),
-          ),
+              Text(year)
+            ],
+          )),
         ),
         theme: ThemeData(
           canvasColor: Color.fromARGB(150, red, 10, blue),
