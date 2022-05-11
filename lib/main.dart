@@ -18,7 +18,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  int alpha = 0;
   int red = 0;
+  int green = 0;
   int blue = 0;
   int yearCounter = 0;
   num tempAnomaly = globals.temperatureAnomaly[0];
@@ -67,18 +69,11 @@ class _MyAppState extends State<MyApp> {
                 ),
                 backgroundColor: Colors.white,
               ),
-
-              // // Years row
-              // SingleChildScrollView(
-              //     scrollDirection: Axis.horizontal,
-              //     child: Row(
-              //       children: globals.lvContents,
-              //     )),
             ],
           )),
         ),
         theme: ThemeData(
-          canvasColor: Color.fromARGB(150, red, 10, blue),
+          canvasColor: Color.fromARGB(alpha, red, green, blue),
         ));
   }
 
@@ -103,16 +98,10 @@ class _MyAppState extends State<MyApp> {
 
   // Helper function to set colour values for background
   void setColours() {
-    if (tempAnomaly == 0.0) {
-      red = 0;
-      blue = 0;
-    } else if (tempAnomaly < 0.0) {
-      red = 0;
-      blue = 255 - (tempAnomaly * 150.0).toInt().abs();
-    } else {
-      red = 255 - (tempAnomaly * 150.0).toInt();
-      blue = 0;
-    }
+    alpha = 100;
+    red = (0xff * 1 - ((tempAnomaly + 0.63) / 1.89)).toInt();
+    green = 0;
+    blue = (0xff * tempAnomaly + 0.63) ~/ 1.89;
   }
 
   @override
