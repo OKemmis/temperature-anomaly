@@ -32,18 +32,38 @@ class _MyAppState extends State<MyApp> {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Year text
               Text(
                 year,
                 style: GoogleFonts.lato(
                   textStyle: const TextStyle(color: Colors.white, fontSize: 50),
                 ),
               ),
+
+              // Temperature anomaly text
               Text(
                 tempAnomaly.toString(),
                 style: GoogleFonts.lato(
                   textStyle: const TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
+
+              ElevatedButton(
+                  onPressed: () {
+                    if (timer.isActive) {
+                      dispose();
+                    } else {
+                      createTimer();
+                    }
+                  },
+                  child: const Text("Pause"))
+
+              // // Years row
+              // SingleChildScrollView(
+              //     scrollDirection: Axis.horizontal,
+              //     child: Row(
+              //       children: globals.lvContents,
+              //     )),
             ],
           )),
         ),
@@ -52,12 +72,16 @@ class _MyAppState extends State<MyApp> {
         ));
   }
 
-  Timer? timer;
+  late Timer timer;
 
   @override
   void initState() {
     super.initState();
+    createTimer();
+  }
 
+  // Create a new periodic timer
+  void createTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       setState(() {
         yearCounter++;
@@ -83,7 +107,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
-    super.dispose();
-    timer?.cancel();
+    timer.cancel();
   }
 }
