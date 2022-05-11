@@ -1,111 +1,44 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:temperature_anomaly/loop_page.dart';
 
 void main() {
   runApp(
     const MaterialApp(
-      home: MyApp(),
+      home: MainPage(),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
-  _MyAppState createState() => _MyAppState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _MyAppState extends State<MyApp> {
-  int alpha = 0;
-  int red = 0;
-  int green = 0;
-  int blue = 0;
-  int yearCounter = 0;
-  num tempAnomaly = globals.temperatureAnomaly[0];
-
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    var year = globals.years[yearCounter].toString();
     return MaterialApp(
-        home: Scaffold(
-          body: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Year text
-              Text(
-                year,
-                style: GoogleFonts.lato(
-                  textStyle: const TextStyle(color: Colors.white, fontSize: 50),
-                ),
-              ),
-
-              // Temperature anomaly text
-              Text(
-                tempAnomaly.toString(),
-                style: GoogleFonts.lato(
-                  textStyle: const TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
-
-              // Sized Box for spacing
-              const SizedBox(
-                height: 50,
-              ),
-
-              FloatingActionButton(
-                onPressed: () {
-                  if (timer.isActive) {
-                    dispose();
-                  } else {
-                    createTimer();
-                  }
-                },
-                child: const Icon(
-                  Icons.pause,
-                  color: Colors.black,
-                ),
-                backgroundColor: Colors.white,
-              ),
-            ],
-          )),
-        ),
-        theme: ThemeData(
-          canvasColor: Color.fromARGB(alpha, red, green, blue),
-        ));
-  }
-
-  late Timer timer;
-
-  @override
-  void initState() {
-    super.initState();
-    createTimer();
-  }
-
-  // Create a new periodic timer
-  void createTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      setState(() {
-        yearCounter++;
-        tempAnomaly = globals.temperatureAnomaly[yearCounter];
-        setColours();
-      });
-    });
-  }
-
-  // Helper function to set colour values for background
-  void setColours() {
-    alpha = 100;
-    red = (0xff * 1 - ((tempAnomaly + 0.63) / 1.89)).toInt();
-    green = 0;
-    blue = (0xff * tempAnomaly + 0.63) ~/ 1.89;
-  }
-
-  @override
-  void dispose() {
-    timer.cancel();
+      home: Scaffold(
+        body: Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const LoopPage()));
+            },
+            backgroundColor: Colors.white,
+            child: const Icon(
+              Icons.play_arrow,
+              color: Colors.black,
+            ),
+          ),
+        ])),
+      ),
+      theme: ThemeData(canvasColor: Colors.white),
+    );
   }
 }
