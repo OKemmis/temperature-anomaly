@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:charcode/ascii.dart';
+import 'package:charcode/html_entity.dart';
 
 void main() {
   runApp(
@@ -34,6 +36,23 @@ class _LoopPageState extends State<LoopPage> {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child:
+                    // Back button test
+                    FloatingActionButton(
+                  backgroundColor: Colors.black.withOpacity(0),
+                  highlightElevation: 0,
+                  focusElevation: 0,
+                  hoverElevation: 0,
+                  elevation: 0,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(Icons.arrow_back_ios_new_sharp),
+                ),
+              ),
+
               // Year text
               Text(
                 year,
@@ -70,6 +89,22 @@ class _LoopPageState extends State<LoopPage> {
                 ),
                 backgroundColor: Colors.white,
               ),
+
+              // Sized Box for spacing
+              const SizedBox(
+                height: 50,
+              ),
+
+              // Progress indicator
+              SizedBox(
+                child: LinearProgressIndicator(
+                  value: (yearCounter / 221).toDouble(),
+                  backgroundColor: Colors.white,
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.black),
+                  semanticsLabel: "Linear progress indicator",
+                ),
+                width: MediaQuery.of(context).size.width * 0.8,
+              ),
             ],
           )),
         ),
@@ -89,6 +124,9 @@ class _LoopPageState extends State<LoopPage> {
   // Create a new periodic timer
   void createTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (yearCounter == 2021) {
+        Navigator.pop(context);
+      }
       setState(() {
         yearCounter++;
         tempAnomaly = globals.temperatureAnomaly[yearCounter];
@@ -99,10 +137,22 @@ class _LoopPageState extends State<LoopPage> {
 
   // Helper function to set colour values for background
   void setColours() {
-    alpha = 100;
-    red = (0xff * 1 - ((tempAnomaly + 0.63) / 1.89)).toInt();
-    green = 0;
-    blue = (0xff * tempAnomaly + 0.63) ~/ 1.89;
+    if (tempAnomaly == 0.0) {
+      alpha = 100;
+      red = 0;
+      green = 0;
+      blue = 0;
+    } else if (tempAnomaly < 0.0) {
+      alpha = 100;
+      red = 0;
+      green = 0;
+      blue = 255 - (tempAnomaly * 150.0).toInt().abs();
+    } else {
+      alpha = 100;
+      red = 255 - (tempAnomaly * 150.0).toInt();
+      green = 0;
+      blue = 0;
+    }
   }
 
   @override
