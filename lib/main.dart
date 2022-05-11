@@ -48,15 +48,25 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
 
-              ElevatedButton(
-                  onPressed: () {
-                    if (timer.isActive) {
-                      dispose();
-                    } else {
-                      createTimer();
-                    }
-                  },
-                  child: const Text("Pause"))
+              // Sized Box for spacing
+              const SizedBox(
+                height: 50,
+              ),
+
+              FloatingActionButton(
+                onPressed: () {
+                  if (timer.isActive) {
+                    dispose();
+                  } else {
+                    createTimer();
+                  }
+                },
+                child: const Icon(
+                  Icons.pause,
+                  color: Colors.black,
+                ),
+                backgroundColor: Colors.white,
+              ),
 
               // // Years row
               // SingleChildScrollView(
