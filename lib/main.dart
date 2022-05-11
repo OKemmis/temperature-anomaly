@@ -21,10 +21,11 @@ class _MyAppState extends State<MyApp> {
   int red = 0;
   int blue = 0;
   int yearCounter = 0;
+  num tempAnomaly = globals.temperatureAnomaly[0];
 
   @override
   Widget build(BuildContext context) {
-    var year = globals.years[yearCounter++].toString();
+    var year = globals.years[yearCounter].toString();
     return MaterialApp(
         home: Scaffold(
           body: Center(
@@ -34,11 +35,15 @@ class _MyAppState extends State<MyApp> {
               Text(
                 year,
                 style: GoogleFonts.lato(
-                  textStyle: const TextStyle(
-                      color: Colors.white, fontSize: 50, height: 3),
+                  textStyle: const TextStyle(color: Colors.white, fontSize: 50),
                 ),
               ),
-              Text(year)
+              Text(
+                tempAnomaly.toString(),
+                style: GoogleFonts.lato(
+                  textStyle: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
             ],
           )),
         ),
@@ -55,21 +60,25 @@ class _MyAppState extends State<MyApp> {
 
     timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       setState(() {
-        // Change colour here
-        final tempAnomaly = globals.temperatureAnomaly[yearCounter];
-        if (tempAnomaly == 0.0) {
-          red = 0;
-          blue = 0;
-        } else if (tempAnomaly < 0.0) {
-          red = 0;
-          blue = 255 - (tempAnomaly * 150.0).toInt().abs();
-          print(blue);
-        } else {
-          red = 255 - (tempAnomaly * 150.0).toInt();
-          blue = 0;
-        }
+        yearCounter++;
+        tempAnomaly = globals.temperatureAnomaly[yearCounter];
+        setColours();
       });
     });
+  }
+
+  // Helper function to set colour values for background
+  void setColours() {
+    if (tempAnomaly == 0.0) {
+      red = 0;
+      blue = 0;
+    } else if (tempAnomaly < 0.0) {
+      red = 0;
+      blue = 255 - (tempAnomaly * 150.0).toInt().abs();
+    } else {
+      red = 255 - (tempAnomaly * 150.0).toInt();
+      blue = 0;
+    }
   }
 
   @override
