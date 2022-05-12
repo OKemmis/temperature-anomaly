@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:charcode/ascii.dart';
-import 'package:charcode/html_entity.dart';
 
 void main() {
   runApp(
@@ -49,7 +47,7 @@ class _LoopPageState extends State<LoopPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Icon(Icons.arrow_back_ios_new_sharp),
+                  child: const Icon(Icons.arrow_back_ios_new_sharp),
                 ),
               ),
 
@@ -98,7 +96,7 @@ class _LoopPageState extends State<LoopPage> {
               // Progress indicator
               SizedBox(
                 child: LinearProgressIndicator(
-                  value: (yearCounter / 221).toDouble(),
+                  value: (yearCounter / 141).toDouble(),
                   backgroundColor: Colors.white,
                   valueColor: const AlwaysStoppedAnimation<Color>(Colors.black),
                   semanticsLabel: "Linear progress indicator",
@@ -124,10 +122,13 @@ class _LoopPageState extends State<LoopPage> {
   // Create a new periodic timer
   void createTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      if (yearCounter == 2021) {
+      if (yearCounter == 141) {
+        print(globals.years.length);
+        timer.cancel();
         Navigator.pop(context);
       }
       setState(() {
+        print(yearCounter);
         yearCounter++;
         tempAnomaly = globals.temperatureAnomaly[yearCounter];
         setColours();

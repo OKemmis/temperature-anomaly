@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'globals.dart' as globals;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:temperature_anomaly/loop_page.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 void main() {
   runApp(

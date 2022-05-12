@@ -1,7 +1,5 @@
 library flutter_test_application.globals;
 
-import 'package:flutter/material.dart';
-
 final temperatureAnomaly = <num>[
   -0.15,
   -0.06,
