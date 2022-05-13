@@ -1,23 +1,24 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:temperature_anomaly/info_page.dart';
 import 'package:temperature_anomaly/loop_page.dart';
 
 void main() {
   runApp(
     const MaterialApp(
-      home: MainPage(),
+      home: InfoPage(),
     ),
   );
 }
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class InfoPage extends StatefulWidget {
+  const InfoPage({Key? key}) : super(key: key);
 
-  _MainPageState createState() => _MainPageState();
+  _InfoPageState createState() => _InfoPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,7 +36,7 @@ class _MainPageState extends State<MainPage> {
                   children: [
                 // Heading text
                 Text(
-                  "Visualise mean temperature anomaly with colours!",
+                  "Info",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lato(
                     textStyle:
@@ -45,51 +46,64 @@ class _MainPageState extends State<MainPage> {
 
                 // Sized box for spacing
                 const SizedBox(
-                  height: 10,
+                  height: 50,
                 ),
 
-                // Info page button
-                TextButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const InfoPage()));
-                    },
-                    icon: const Icon(Icons.info, color: Colors.white),
-                    label: const Text("More Info",
-                        style: TextStyle(color: Colors.white))),
+                // TEXT
 
-                // Sized box for spacing
-                const SizedBox(
-                  height: 30,
-                ),
-
-                // Instruction text
+                // Subheading text
                 Text(
-                  "Press to start",
+                  "Source:",
                   style: GoogleFonts.lato(
                     textStyle:
                         const TextStyle(color: Colors.white, fontSize: 15),
                   ),
+                  textAlign: TextAlign.center,
+                ),
+
+                // Source text
+                Text(
+                  "Data sourced from NOAA (National Centers for Environmental Information)",
+                  style: GoogleFonts.lato(
+                    textStyle:
+                        const TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+
+                // Link text
+                Text(
+                  "Available here: https://www.ncdc.noaa.gov/cag/global/time-series",
+                  style: GoogleFonts.lato(
+                    textStyle:
+                        const TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+
+                // Details text
+                Text(
+                  "\nTemperature anomaly for years: 1880-2021, compared to a 1901-2000 base period\nColour temperature (blue-red) corresponds to anomaly",
+                  style: GoogleFonts.lato(
+                    textStyle:
+                        const TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
 
                 // Sized box for spacing
                 const SizedBox(
-                  height: 20,
+                  height: 50,
                 ),
 
-                // Start button
+                // Back button
                 FloatingActionButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoopPage()));
+                    Navigator.pop(context);
                   },
                   backgroundColor: Colors.white,
                   child: const Icon(
-                    Icons.play_arrow,
+                    Icons.arrow_back_ios_new,
                     color: Colors.black,
                   ),
                 ),

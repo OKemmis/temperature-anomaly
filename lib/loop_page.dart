@@ -23,7 +23,7 @@ class _LoopPageState extends State<LoopPage> {
   int green = 0;
   int blue = 0;
   int yearCounter = 0;
-  num tempAnomaly = globals.temperatureAnomaly[0];
+  num tempAnomaly = globals.new_data[0];
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class _LoopPageState extends State<LoopPage> {
               FloatingActionButton(
                 onPressed: () {
                   if (timer.isActive) {
-                    dispose();
+                    timer.cancel();
                   } else {
                     createTimer();
                   }
@@ -96,7 +96,7 @@ class _LoopPageState extends State<LoopPage> {
               // Progress indicator
               SizedBox(
                 child: LinearProgressIndicator(
-                  value: (yearCounter / 141).toDouble(),
+                  value: (yearCounter / 143).toDouble(),
                   backgroundColor: Colors.white,
                   valueColor: const AlwaysStoppedAnimation<Color>(Colors.black),
                   semanticsLabel: "Linear progress indicator",
@@ -123,16 +123,17 @@ class _LoopPageState extends State<LoopPage> {
   void createTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (yearCounter == 141) {
-        print(globals.years.length);
-        timer.cancel();
+        //print(globals.years.length);
+        dispose();
         Navigator.pop(context);
+      } else {
+        setState(() {
+          print(yearCounter);
+          yearCounter++;
+          tempAnomaly = globals.new_data[yearCounter];
+          setColours();
+        });
       }
-      setState(() {
-        print(yearCounter);
-        yearCounter++;
-        tempAnomaly = globals.temperatureAnomaly[yearCounter];
-        setColours();
-      });
     });
   }
 
@@ -158,6 +159,7 @@ class _LoopPageState extends State<LoopPage> {
 
   @override
   void dispose() {
+    super.dispose();
     timer.cancel();
   }
 }
