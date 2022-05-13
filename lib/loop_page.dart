@@ -50,6 +50,7 @@ class _LoopPageState extends State<LoopPage> {
                   Navigator.pop(context);
                 },
                 child: const Icon(Icons.arrow_back_ios_new_sharp),
+                tooltip: "back",
               ),
             ),
 
@@ -74,7 +75,7 @@ class _LoopPageState extends State<LoopPage> {
               height: 50,
             ),
 
-            // Floating action button to pause execution
+            // Pause button
             FloatingActionButton(
               onPressed: () {
                 if (timer.isActive) {
@@ -88,6 +89,7 @@ class _LoopPageState extends State<LoopPage> {
                 color: Colors.black,
               ),
               backgroundColor: Colors.white,
+              tooltip: "play / pause",
             ),
 
             // Sized Box for spacing
