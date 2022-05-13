@@ -83,7 +83,7 @@ class _InfoPageState extends State<InfoPage> {
 
                 // Details text
                 Text(
-                  "\nTemperature anomaly for years: 1880-2021, compared to a 1901-2000 base period\nColour temperature (blue-red) corresponds to anomaly",
+                  "\nTemperature anomaly for years: 1880-2021, compared to a 1901-2000 base period\nColour temperature (blue-red) corresponds to anomaly\n\n \u00A9 Otto Kemmis 2022",
                   style: GoogleFonts.lato(
                     textStyle:
                         const TextStyle(color: Colors.white, fontSize: 15),
