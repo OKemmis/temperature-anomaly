@@ -1,16 +1,13 @@
 # temperature_anomaly
 
-A new Flutter project.
+https://ottok-08042022.web.app
 
-## Getting Started
+A Flutter project which renders the years from 1880 to 2021 as a sequence of colours, with shades of blue representing years with negative global temperature anomaly and shades of red representing years with positive anomaly. The user is able to see a clear visual indication that global mean temperatures are increasing, as the colours associated with recent years become more saturated shades of red.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The data I used for my visualisation was sourced from NOAA (the National Centers for
+Environmental Information) and is available here: https://www.ncdc.noaa.gov/cag/global/time-series. The parameters I used are as follows:
+* Timescale: Annual
+* Start Year: 1880
+* End Year: 2021
+* Region: Global
+* Surface: Land and Ocean
